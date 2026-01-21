@@ -15,6 +15,8 @@ public class Cafetera {
 
 	public Cafetera(int capacidadMaxima, int cantidadActual) {
 		this.capacidadMaxima = capacidadMaxima;
+		//En el enunciado pone que tenemos que hacer esto 
+		//pero e codigo que nos da no nos los pasa
 		this.cantidadActual = 
 			cantidadActual > capacidadMaxima 
 				? capacidadMaxima 
@@ -65,6 +67,10 @@ public class Cafetera {
 	
 	public void agregarCafe(int cc) {
 		cantidadActual += cc;
+	}
+	
+	public String toString() {
+		return "Capacidad = " + capacidadMaxima + " Cantidad actual = " + cantidadActual;
 	}
 	
 }
