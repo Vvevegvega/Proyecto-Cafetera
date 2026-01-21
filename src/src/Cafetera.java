@@ -6,31 +6,28 @@ public class Cafetera {
 
 	//CONSTRUCTORES
 	public Cafetera() {
-		this(1000, 0);
+		capacidadMaxima = 1000;
+		cantidadActual = 0;
 	}
 
 	public Cafetera(int capacidadMaxima) {
-		this(capacidadMaxima, capacidadMaxima);
+		this.capacidadMaxima = capacidadMaxima;
+		this.cantidadActual = capacidadMaxima;
 	}
 
 	public Cafetera(int capacidadMaxima, int cantidadActual) {
 		this.capacidadMaxima = capacidadMaxima;
-		//En el enunciado pone que tenemos que hacer esto 
-		//pero e codigo que nos da no nos los pasa
-		this.cantidadActual = 
-			cantidadActual > capacidadMaxima 
-				? capacidadMaxima 
-				: cantidadActual;
+		this.cantidadActual = cantidadActual;
 	}
 
 	//GETTERS Y SETTERS
-	public double getCantidadActual() {
+	public int getCantidadActual() {
 		return this.cantidadActual;
 	}
 	public void setCantidadActual(int newCantidad) {
 		this.cantidadActual = newCantidad;
 	}
-	public double getCapacidadMaxima() {
+	public int getCapacidadMaxima() {
 		return this.capacidadMaxima;
 	}
 	public void setCapacidadMaxima(int newCapacidad) {
