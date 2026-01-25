@@ -21,7 +21,7 @@ class CafeteraTest {
 		constructor.
 	 */
 	@Test
-	void testConstructorVacio() {
+	void testConstructor() {
 		cafetera = new Cafetera();
 		
 		assertEquals(1000, cafetera.getCapacidadMaxima());
@@ -29,7 +29,7 @@ class CafeteraTest {
 	}
 	
 	@Test
-	void testConstructorCapacidad() {
+	void testConstructorDandoCapacidad() {
 		cafetera = new Cafetera(500);
 		
 		assertEquals(500, cafetera.getCapacidadMaxima());
@@ -37,7 +37,7 @@ class CafeteraTest {
 	}
 	
 	@Test
-	void testConstructorCapacidadMayorQueCantidad() {
+	void testConstructorDandoCapacidadMayorQueCantidad() {
 		cafetera = new Cafetera(500, 30);
 		
 		assertEquals(500, cafetera.getCapacidadMaxima());
@@ -45,7 +45,7 @@ class CafeteraTest {
 	}
 	
 	@Test
-	void testConstructorCapacidadMenorQueCantidadCantidad() {
+	void testConstructorDandoCapacidadMenorQueCantidadCantidad() {
 		cafetera = new Cafetera(500, 1000);
 		
 		assertEquals(500, cafetera.getCapacidadMaxima());
@@ -62,6 +62,7 @@ class CafeteraTest {
 		 - Se comprueba que el valor almacenado del atributo con el método set y el obtenido con el método get
 		son iguales a través de assertEquals(…)
 	 */
+	//GET Y SET CAPACIDAD
 	/**
 	 * Test donde comprobamos que la capacidad máxima 
 	 * se actualiza correctamente haciendo uso de los 
@@ -76,6 +77,45 @@ class CafeteraTest {
 	}
 	
 	/**
+	 * Test donde comprobamos que la capacidad máxima 
+	 * no puede tomar valores negativos
+	 */
+	@Test
+	void testGetSetCapacidadMaximaNegativa() {
+		cafetera = new Cafetera(100);
+		cafetera.setCapacidadMaxima(-10);
+		
+		assertEquals(100, cafetera.getCapacidadMaxima());
+	}
+	
+	/**
+	 * Test donde comprobamos que la capacidad máxima 
+	 * no puede tomar el valor 0
+	 */
+	@Test
+	void testGetSetCapacidadMaximaZero() {
+		cafetera = new Cafetera(100);
+		cafetera.setCapacidadMaxima(0);
+		
+		assertEquals(100, cafetera.getCapacidadMaxima());
+	}
+	
+	/**
+	 * Test donde comprobamos que la capacidad máxima 
+	 * se actualiza correctamente haciendo uso de los 
+	 * correspondientes get y set
+	 */
+	@Test
+	void testGetSetCapacidadMaximaMenorQueCantidad() {
+		cafetera = new Cafetera(500, 100);
+		cafetera.setCapacidadMaxima(50);
+		
+		assertEquals(50, cafetera.getCapacidadMaxima());
+		assertEquals(50, cafetera.getCantidadActual());
+	}
+	
+	//GET Y SET CANTIDAD
+	/**
 	 * Test donde comprobamos que en la cantidad
 	 * actual se actualiza correctamente haciendo
 	 * uso de los correspondientes get y set
@@ -89,13 +129,50 @@ class CafeteraTest {
 	}
 	
 	/**
-	 * Test donde que no se permite establecer una
-	 * cantidad mayot que la capacidad de la cafetera
+	 * Test donde comprobamos que en la cantidad
+	 * actual puede establecerse como la capacidad maxima
+	 */
+	@Test
+	void testGetSetCantidadIgualACapacidad() {
+		cafetera = new Cafetera(1000, 50);
+		cafetera.setCantidadActual(cafetera.getCapacidadMaxima());
+		
+		assertEquals(cafetera.getCapacidadMaxima(), cafetera.getCantidadActual());
+	}
+	
+	/**
+	 * Test donde comprobamos que en la cantidad
+	 * actual no puede tomar valores negativos
+	 */
+	@Test
+	void testGetSetCantidadNegativa() {
+		cafetera = new Cafetera(1000);
+		cafetera.setCantidadActual(-10);
+		
+		assertEquals(0, cafetera.getCantidadActual());
+	}
+	
+	/**
+	 * Test donde comprobamos que en la cantidad
+	 * actual se actualiza correctamente cuando
+	 * ponemos la cantidad a 0
+	 */
+	@Test
+	void testGetSetCantidadZero() {
+		cafetera = new Cafetera(1000);
+		cafetera.setCantidadActual(0);
+		
+		assertEquals(0, cafetera.getCantidadActual());
+	}
+	
+	/**
+	 * Test donde se comprueba que no se permite establecer una
+	 * cantidad mayor que la capacidad de la cafetera
 	 */
 	@Test
 	void testGetSetCantidadMayorQueCapacidad() {
 		cafetera = new Cafetera(100);
-		cafetera.setCantidadActual(100000);
+		cafetera.setCantidadActual(cafetera.getCapacidadMaxima()*2);
 		
 		assertEquals(100, cafetera.getCantidadActual());
 	}
@@ -157,7 +234,7 @@ class CafeteraTest {
 	//Test Servir cafe
 	/**
 	 * Metodo que comprueba el primer camino 
-	 * 1-2-3-6
+	 * 1-2-3-5
 	 * Tenemos cafe suficiente para servir la taza
 	 * la taza se sirve correctamente
 	 * El valor de cafe actual cambia adecuadamente
@@ -174,7 +251,7 @@ class CafeteraTest {
 	
 	/**
 	 * Metodo que comprueba el segundo camino 
-	 * 1-2-4-6
+	 * 1-2-4-5
 	 * Tenemos algo de cafe en la cafetera pero no lo 
 	 * suficiente para llenar la taza en su totalidad
 	 * La taza devuelve el sobrante de cafe y la cantidad 
@@ -191,7 +268,7 @@ class CafeteraTest {
 	
 	/**
 	 * Metodo que comprueba el tercer camino 
-	 * 1-5-6
+	 * 1-5
 	 * No tenemos nada de cafe en la cafetera
 	 * La taza devuelve 0 y la cantidad de la 
 	 * cafetera se mantiene a 0
